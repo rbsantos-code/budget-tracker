@@ -21,7 +21,7 @@ request.onsuccess = function(event) {
     // check if app is online,
     if (navigator.onLine) {
         // insert function below
-        // budgetDataBase()
+        // budgetData()
     }
 };
 
@@ -41,4 +41,52 @@ function saveRecord(record) {
 
     // add record to store with add method
     budgetObjectStore.add(record);
+}
+
+
+// POST data to server
+function budgetData() {
+    // open a transaction on db
+    const transaction = db.transaction(['new_budget'], 'readwrite');
+
+    // access you object store
+    const budgetObjectStore = transaction.objectStore('new_budget');
+
+    // get all records from store and set to a variable
+    const getAll = budgetObjectStore.getAll();
+
+
+    getAll.onsuccess = function() {
+        // if theres data in indexedDB's store, send to server
+        if (getAll.result.length > 0) {
+            fetch('/api/transaction', {
+                method: 'POST',
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: 'application/json, text/plain, */*', 'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(serverResponse => {
+                if (serverResponse.message) {
+                    throw new Error(serverResponse);
+                }
+                // open one more transaction
+                const transaction = db.transaction(['new_budget'], 'readwrite');
+                
+                // access the new_budget object store
+                const budgetObjectStore = transaction.objectStore('new_budget');
+
+                // clear all items in store
+                budgetObjectStore.clear();
+
+                alert('All budget data have been submited!');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    }
+
+
 }
