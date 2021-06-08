@@ -21,7 +21,7 @@ request.onsuccess = function(event) {
     // check if app is online,
     if (navigator.onLine) {
         // insert function below
-        // budgetData()
+        budgetData()
     }
 };
 
@@ -88,5 +88,8 @@ function budgetData() {
         }
     }
 
-
 }
+
+
+// listen for app coming back online
+window.addEventListener('online', budgetData);
