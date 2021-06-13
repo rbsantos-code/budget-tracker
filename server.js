@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const compression = require("compression");
 
 const PORT = process.env.PORT || 3001;
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/budget";
+// const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/budget";
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // MONGODB_URI created above at line 7
-mongoose.connect( MONGODB_URI, {
+mongoose.connect( 'mongodb+srv://rbcode:MongoBootcamp2021@cluster0.unxpg.mongodb.net/budgetTracker?retryWrites=true&w=majority', {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useFindAndModify: false
