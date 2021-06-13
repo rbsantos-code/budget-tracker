@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // MONGODB_URI created above at line 7
-mongoose.connect( 'mongodb+srv://rbcode:MongoBootcamp2021@cluster0.unxpg.mongodb.net/budgetTracker?retryWrites=true&w=majority', {
+mongoose.connect(  "mongodb+srv://user1:asdfgh1234@cluster0.ely5l.azure.mongodb.net/BudgetTracker?retryWrites=true&w=majority", {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useFindAndModify: false
